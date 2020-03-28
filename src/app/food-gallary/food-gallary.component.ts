@@ -10,19 +10,22 @@ import { Router } from '@angular/router';
 })
 export class FoodGallaryComponent implements OnInit {
   public foodList: any = [];
-  public pageNumber = 1;
   public showLoader = false;
+  public pageNumber: number;
   constructor(private flickrService: FlickrService, private _sharedService: SharedService, private router: Router) { }
 
   ngOnInit() {
+    this.pageNumber = this._sharedService.pageNumber;
     this.getFoodList();
+
   }
   getFoodList() {
     this.showLoader = true;
     this.flickrService.getDishPics(this.pageNumber).subscribe(result => {
       this.foodList = result.photos.photo;
+      this._sharedService.pageNumber = this.pageNumber;
       this.showLoader = false;
-    })
+    });
   }
 
   getImageUrl(food: any): string {
