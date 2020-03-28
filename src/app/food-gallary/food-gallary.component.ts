@@ -9,10 +9,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./food-gallary.component.css']
 })
 export class FoodGallaryComponent implements OnInit {
-   public foodList: any = [];
-  public pageNumber: number = 1;
-  public showLoader: boolean = false;
-  constructor(private flickrService: FlickrService ,private _sharedService:SharedService, private router: Router) { }
+  public foodList: any = [];
+  public pageNumber = 1;
+  public showLoader = false;
+  constructor(private flickrService: FlickrService, private _sharedService: SharedService, private router: Router) { }
 
   ngOnInit() {
     this.getFoodList();
@@ -25,15 +25,15 @@ export class FoodGallaryComponent implements OnInit {
     })
   }
 
-  getImageUrl(food:any): string {
+  getImageUrl(food: any): string {
     return this.flickrService.formFlickrData(food);
   }
 
-  checkAlreadyReviewed(id:string): number {
+  checkAlreadyReviewed(id: string): number {
     return this._sharedService.getInitialStars(id);
   }
 
-  foodSelected(food:any) {
+  foodSelected(food: any) {
     this._sharedService.updateChosenFood(food);
     this.router.navigate(['/foodDetails']);
   }

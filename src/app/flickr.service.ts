@@ -7,42 +7,42 @@ import { Observable } from 'rxjs';
 export class FlickrService {
   private flickrParams = {
     params: {
-      api_key:'c28c40210d45d354468a989246cd4b54',
-      format:'json',
-      nojsoncallback:'1',
-      per_page:'30'
+      api_key: 'c28c40210d45d354468a989246cd4b54',
+      format: 'json',
+      nojsoncallback: '1',
+      per_page: '30'
     }
-  }
-  private flickrUrl = "https://api.flickr.com/services/rest/";
-constructor(private http: HttpClient) { }
-  getDishPics(pageNumber:number): Observable<any> {
+  };
+  private flickrUrl = 'https://api.flickr.com/services/rest/';
+  constructor(private http: HttpClient) { }
+  getDishPics(pageNumber: number): Observable<any> {
     const API_URL = this.flickrUrl;
     this.flickrParams.params['method'] = 'flickr.photos.search';
     this.flickrParams.params['tags'] = 'food';
     this.flickrParams.params['text'] = 'food';
     this.flickrParams.params['page'] = pageNumber.toString();
-    return this.http.get<any>(API_URL,this.flickrParams);
+    return this.http.get<any>(API_URL, this.flickrParams);
   }
 
-  getDishInfo(photoId:number): Observable<any> {
+  getDishInfo(photoId: number): Observable<any> {
     const API_URL = this.flickrUrl;
     this.flickrParams.params['method'] = 'flickr.photos.getInfo';
     this.flickrParams.params['photo_id'] = photoId;
-    return this.http.get<any>(API_URL,this.flickrParams);
+    return this.http.get<any>(API_URL, this.flickrParams);
   }
 
-  formFlickrData(food:any): string {
-    return 'http://farm'+food.farm+'.static.flickr.com/'+food.server+'/'+food.id+'_'+food.secret+'.jpg';
+  formFlickrData(food: any): string {
+    return 'http://farm' + food.farm + '.static.flickr.com/' + food.server + '/' + food.id + '_' + food.secret + '.jpg';
   }
-createToast(message:string, backgroundColor:string) {
-    console.log("tst");
-    let snackbar = document.getElementById("snackbar");
+  createToast(message: string, backgroundColor: string) {
+    console.log('tst');
+    const snackbar = document.getElementById('snackbar');
     console.log(snackbar);
-    snackbar.className = "showToast";
-    snackbar.style.background = backgroundColor || "#000";
+    snackbar.className = 'showToast';
+    snackbar.style.background = backgroundColor || '#000';
     snackbar.innerHTML = message;
     setTimeout(() => {
-      snackbar.className = snackbar.className.replace("showToast", "");
+      snackbar.className = snackbar.className.replace('showToast', '');
     }, 3000);
   }
 }
